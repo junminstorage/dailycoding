@@ -3,8 +3,45 @@ import java.util.*;
 public class StringQ {
 
     public static void main(String[] args) {
-        System.out.println(convertToBase10("2147483647", 10));
-        System.out.println(convertToBase10("-2147483648", 10));
+        //System.out.println(convertToBase10("2147483647", 10));
+        //System.out.println(convertToBase10("-2147483648", 10));
+    }
+
+    public static boolean isUnique(String s) {
+        if(s == null)
+            return false;
+        Set<Character> set = new HashSet<>();
+        for(char c : s.toCharArray()) {
+            if(set.contains(c))
+                return false;
+            set.add(c);
+        }
+        return true;
+    }
+
+    public static boolean isUnique2(String s) {
+        if(s == null)
+            return false;
+        int len = s.length();
+        for(int i=0; i<len; i++) {
+            for(int j=i+1;j<len; j++) {
+                if(s.charAt(i) ==s.charAt(j))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isPermutation(String str1, String str2) {
+        if(str1 == null || str2 == null)
+            return false;
+        return sortedString(str1).equals(sortedString(str2));
+    }
+
+    private static String sortedString(String str) {
+        char[] chars = str.toCharArray();
+        Arrays.sort(chars);
+        return String.valueOf(chars);
     }
 
     /*
