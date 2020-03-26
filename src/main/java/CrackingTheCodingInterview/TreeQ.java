@@ -8,8 +8,13 @@ public class TreeQ {
     //given a binary tree, and each of node has parent pointer as well
     //find a given node's in-order traveral successor
     public static Node inOrderSuccessor(Node root, Node target) {
-        if(target.right == null)
-            return dfs(root, target);
+        if(target.right == null) {
+            Node found =  dfs(root, target);
+            if(found == target)
+                return null;
+            else
+                return found;
+        }
         else{
             /*
               target
@@ -51,6 +56,7 @@ public class TreeQ {
             if(found == null)
                 return dfs(curr.right, target);
             else{
+                //update the returned value to parent
                 if(found == target)
                     return curr;
                 else
