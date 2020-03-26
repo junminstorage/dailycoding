@@ -20,11 +20,7 @@ public class TreeQ {
                     return result;
                 }
             }else{
-                if(target.right == null)
-                    return target.parent;
-                else{
-                    return target.right;
-                }
+                return parent;
             }
         }else{
             //target is root
