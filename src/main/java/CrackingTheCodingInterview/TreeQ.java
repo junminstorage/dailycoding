@@ -11,6 +11,15 @@ public class TreeQ {
         if(target.right == null)
             return dfs(root, target);
         else{
+            /*
+              target
+                 \
+                 right
+                 /
+                left
+                /
+               left_most
+             */
             Node right = target.right;
             while(right.left!=null)
                 right = right.left;
@@ -18,9 +27,20 @@ public class TreeQ {
         }
     }
 
+    /*
     //find parent node for target node which is
     //either left child of the parent
     //or right child of the left node of the parent
+      p
+     /
+    target
+
+      P
+     /
+    node
+     \
+     target
+    */
     public static Node dfs(Node curr, Node target) {
         if(curr == null)
             return null;
