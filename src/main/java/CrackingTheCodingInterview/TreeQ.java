@@ -3,8 +3,35 @@ package CrackingTheCodingInterview;
 public class TreeQ {
 
     static class Node {
-        Node left, right;
+        Node left, right, parent;
     }
+
+    public static Node postOrderSuccessor(Node root, Node target) {
+        Node parent = target.parent;
+        if(parent !=null) {
+            if(parent.left == target) {
+                if(parent.right == null)
+                    return parent;
+                else{
+                    //find the left most node of right substree of parent
+                    Node result = parent.right;
+                    while(result.left!=null)
+                        result = result.left;
+                    return result;
+                }
+            }else{
+                if(target.right == null)
+                    return target.parent;
+                else{
+                    return target.right;
+                }
+            }
+        }else{
+            //target is root
+            return target.right;
+        }
+    }
+
     //given a binary tree, and each of node has parent pointer as well
     //find a given node's in-order traveral successor
     public static Node inOrderSuccessor(Node root, Node target) {
