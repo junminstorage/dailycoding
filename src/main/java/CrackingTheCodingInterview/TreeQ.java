@@ -18,8 +18,9 @@ public class TreeQ {
         }
     }
 
-    //find parent node for target node
-    //and target node is left child of the parent
+    //find parent node for target node which is
+    //either left child of the parent
+    //or right child of the left node of the parent
     public static Node dfs(Node curr, Node target) {
         if(curr == null)
             return null;
