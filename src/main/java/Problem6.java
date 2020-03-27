@@ -13,6 +13,9 @@ public class Problem6 {
      */
     public int countWaysDP(String number) {
         int len = number.length();
+        if(len == 1)
+            return 1;
+
         int p1 = 1, p2 = 1;
         if(len>=2){
             int num = Integer.parseInt(number.substring(0, 2));
@@ -20,12 +23,7 @@ public class Problem6 {
                 p2 += 1;
         }
 
-        if(len == 1)
-            return p1;
-        if(len == 2)
-            return p2;
-
-        int p = 0;
+        int p = p2;
         for(int i=2; i<len; i++) {
             p = p2;
             int num = Integer.parseInt(number.substring(i-1, i+1));
@@ -35,35 +33,40 @@ public class Problem6 {
             p1 = p2;
             p2 = p;
         }
-
         return p;
-
     }
 
-    Set<String> store;
+    Map<Integer, Set<String>> store;
     public int countDecodeWays(String number) {
-        store = new HashSet<>();
-        rec(number, 0, new StringBuilder());
-        return store.size();
+        store = new HashMap<>();
+        return rec(number, 0).size();
     }
 
-    private void rec(String number, int pos, StringBuilder sb){
+    private Set<String> rec(String number, int pos){
         int len = number.length();
         if(pos == len) {
-            store.add(sb.toString());
-            return;
+            return new HashSet<>();
         }
-        sb.append( (char)(number.charAt(pos) - '1' + 'a') );
-        rec(number, pos+1, sb);
+
+        if(store.containsKey(pos))
+            return store.get(pos);
+
+        Set<String> result = new HashSet<>();
+
+        for(String str : rec(number, pos+1)) {
+            result.add( (char)(number.charAt(pos) -'1' + 'a') + str);
+        }
 
         if(pos+2<=len) {
             int num = Integer.parseInt(number.substring(pos, pos + 2));
             if(num <= 26) {
-                StringBuilder copy = new StringBuilder(sb);
-                copy.append((char)(num - 1 + 'a'));
-                rec(number, pos+2, copy);
+                for(String str : rec(number, pos+2)) {
+                    result.add( (char)(num-1 + 'a') + str);
+                }
             }
         }
+        store.put(pos, result);
+        return result;
     }
 
 }
