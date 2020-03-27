@@ -13,19 +13,25 @@ public class TreeQ {
                 if(parent.right == null)
                     return parent;
                 else{
-                    //find the left most node of right substree of parent
-                    Node result = parent.right;
-                    while(result.left!=null)
-                        result = result.left;
-                    return result;
+                    //find "left-most" or first leaf if we look at the subtree rooted at parent.right
+                    return findNext(parent.right);
                 }
             }else{
                 return parent;
             }
         }else{
             //target is root
-            return target.right;
+            return null;
         }
+    }
+
+    public static Node findNext(Node curr) {
+        if(curr.left!=null)
+            return findNext(curr.left);
+        else if(curr.right!=null)
+            return findNext(curr.right);
+        else
+            return curr;
     }
 
     //given a binary tree, and each of node has parent pointer as well
