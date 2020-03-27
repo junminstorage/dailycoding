@@ -23,14 +23,26 @@ public class Problem8 {
         Node left, right;
     }
 
+    static int numberOfUnival;
+
     public static int numberOfSubtree(Node root) {
+        numberOfUnival = 0;
+        isUnival(root);
+        return numberOfUnival;
+    }
+
+    public static boolean isUnival(Node root) {
         if(root == null)
-            return 0;
-        int left = numberOfSubtree(root.left);
-        int right = numberOfSubtree(root.right);
-        if((root.left==null || root.left.v==root.v) && (root.right==null || root.right.v == root.v)){
-            return left + right + 1;
-        }else
-            return left + right;
+            return true;
+        boolean left = isUnival(root.left);
+        boolean right = isUnival(root.right);
+
+        boolean hasSameValue = (root.left==null || root.left.v==root.v) && (root.right==null || root.right.v == root.v);
+
+        boolean isUnival = left && right && hasSameValue;
+        if(isUnival)
+            numberOfUnival++;
+
+        return isUnival;
     }
 }
