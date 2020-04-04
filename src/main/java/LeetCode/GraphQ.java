@@ -1,6 +1,10 @@
 package LeetCode;
 import java.util.*;
 public class GraphQ {
+
+    /**
+     * https://leetcode.com/problems/loud-and-rich/
+     */
     Map<Integer, List<Integer>> graph;
     public int[] loudAndRich(int[][] richer, int[] quiet) {
         graph = new HashMap<>();
