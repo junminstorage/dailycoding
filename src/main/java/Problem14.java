@@ -17,14 +17,17 @@ Hint: The basic equation of a circle is x2 + y2 = r2.
 
     public static double calculatPi() {
         int counter = 0;
-        int total = 3141;
+        int total = 10000;
         Random rand = new Random();
         for(int i=0; i<total * total; i++) {
             double x = rand.nextInt(total+1) /(double)total;
             double y = rand.nextInt(total+1) /(double)total;
-            if(x*x + y*y <= 1.0){
-                counter++;
-            }
+            ///for(double x=0; x<=1.0; x+=0.0001){
+            //    for(double y=0; y<=1.0; y+=0.0001){
+            //        total++;
+                    if(x*x + y*y <= 1.0)
+                        counter++;
+            //    }
         }
 
         return counter * 4.0 / (double)(total*total);

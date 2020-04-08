@@ -42,6 +42,9 @@ The name of a directory or sub-directory will not contain a period.
    private int pos;
 
    public int longestPathStr(String str) {
+
+    Arrays.hashCode(new int[]{1, 2});
+
      //reset pos
      pos = 0;
      //get root dir name
