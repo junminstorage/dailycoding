@@ -16,6 +16,14 @@ public class Problem22 {
      * return either ['bed', 'bath', 'and', 'beyond] or ['bedbath', 'and', 'beyond'].
 
      */
+    public static void main(String[] args) {
+        List<String> dic = Arrays.asList("bed", "bath", "bedbath", "and", "beyond");
+        String str = "bedbathandbeyond";
+        System.out.println(Arrays.toString(new Problem22().wordLadder(str, dic)));
+        System.out.println(new Problem22().wordLadderRec(str, dic));
+        System.out.println(new Problem22().bfs(str, dic));
+        System.out.println(new Problem22().dfsIter(str, dic));
+    }
 
     public String[] wordLadder(String str, List<String> words) {
         Set<String> set = new HashSet<>();
@@ -29,7 +37,10 @@ public class Problem22 {
 
         parents[0] = 0;
 
-        for(int i = 0; parents[i]>=0 && i<len; i++){
+        for(int i = 0; i<len; i++){
+            if(parents[i] == -1)
+                continue;
+
             for(int j = i+1; j<=len; j++) {
                 if(set.contains(str.substring(i, j))) {
                     parents[j] = i;
@@ -39,14 +50,25 @@ public class Problem22 {
                 break;
         }
 
-        return getStringsFromParents(str, len, parents);
+        if(parents[len] >=0)
+            return getStringsFromParents(str, len, parents);
+        else
+            return null;
     }
 
+    public List<String> wordLadderRec(String str, List<String> words) {
+        Set<String> set = new HashSet<>();
+        for (String w : words)
+            set.add(w);
+
+        return dfsRec(str, 0, set, new HashMap<>());
+    }
 
     public List<String> dfsRec(String str, int pos, Set<String> dict, Map<Integer, List<String>> store) {
         int len = str.length();
-        if(pos == 0)
+        if(pos == len)
             return new ArrayList<>();
+
         if(store.containsKey(pos))
             return store.get(pos);
 
@@ -65,7 +87,10 @@ public class Problem22 {
         return result;
     }
 
-    public List<String> bfs(String str, Set<String> dict) {
+    public List<String> bfs(String str, List<String> words) {
+        Set<String> dict = new HashSet<>();
+        for (String w : words)
+            dict.add(w);
         Map<Integer, Integer> parents = new HashMap<>();
         Deque<Integer> q = new ArrayDeque<>();
         q.offer(0);
@@ -88,7 +113,10 @@ public class Problem22 {
         return getListFromParentsMap(str, len, parents);
     }
 
-    public List<String> dfsIter(String str, Set<String> dict) {
+    public List<String> dfsIter(String str, List<String> words) {
+        Set<String> dict = new HashSet<>();
+        for (String w : words)
+            dict.add(w);
         int len = str.length();
         Set<Integer> visited = new HashSet<>();
         Map<Integer, Integer> parents = new HashMap<>();
