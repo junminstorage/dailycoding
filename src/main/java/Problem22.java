@@ -61,7 +61,13 @@ public class Problem22 {
         for (String w : words)
             set.add(w);
 
-        return dfsRec(str, 0, set, new HashMap<>());
+        List<String> res = dfsRec(str, 0, set, new HashMap<>());
+        if(res == null)
+            return res;
+        else{
+            Collections.reverse(res);
+            return res;
+        }
     }
 
     public List<String> dfsRec(String str, int pos, Set<String> dict, Map<Integer, List<String>> store) {
