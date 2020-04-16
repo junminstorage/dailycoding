@@ -46,10 +46,12 @@ public class BinrayLifting {
     }
 
     int lca(int u, int v) {
+        //* this take care of the situation if u/v are direct parent of each other
         if(isAncestor(u, v))
             return u;
         if(isAncestor(v, u))
             return v;
+        // this take care of the case there is LCA between u and v
         for(int i = log; i>=0; i-- ) {
             // here we make sure u can only move to its parent if up[u][i]
             // is not parent of v
