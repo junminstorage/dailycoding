@@ -1,15 +1,8 @@
 package LeetCode;
 
+//https://leetcode.com/contest/weekly-contest-185/problems/minimum-number-of-frogs-croaking/
 class Contest185 {
-  class Point {
-      int index;
-      boolean start;
-      Point(int i, boolean s){
-          index = i;
-          start = s;
-      }
-  }
-  
+
   static Map<Character, Character> store = new HashMap<>();
   static { 
       store.put('r', 'c');
@@ -19,14 +12,14 @@ class Contest185 {
   }
   
   public int minNumberOfFrogs(String croak) {
-
-      List<Integer> c_pos = new ArrayList<>();
-      List<Integer> k_pos = new ArrayList<>();
       
       Map<Character, Integer> map = new HashMap<>();
       
       int j = 0;
       int len = croak.length();
+      
+      int min = 0;
+      int count = 0;
       while(j<len){
   
               char c = croak.charAt(j);
@@ -37,9 +30,11 @@ class Contest185 {
               }
           
               if(c == 'c')
-                  c_pos.add(j);
+                  count++;
               if(c == 'k')
-                  k_pos.add(j);
+                  count--;
+          
+              min = Math.max(min, count);
               
          j++; 
           
@@ -49,27 +44,6 @@ class Contest185 {
       for(Character k : map.keySet()){
           if(map.get(k) != n)
              return -1;
-      }
-      
-      Point[] points = new Point[c_pos.size()*2];
-      int i = 0;
-      for(int c : c_pos){
-          points[i++] = new Point(c, true);
-      }
-      for(int c: k_pos){
-          points[i++] = new Point(c, false);
-      }
-      
-      Arrays.sort(points, Comparator.comparing(p->p.index));
-      
-      int min = 0;
-      int count = 0;
-      for(Point p : points) {
-          if(p.start)
-              count++;
-          else
-              count--;
-          min = Math.max(min, count);
       }
       
       return min;
